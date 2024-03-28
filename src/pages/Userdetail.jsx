@@ -1,7 +1,7 @@
 import Sidebar from "../component/custom/Sidebar";
 import Header from "../component/custom/Header";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "../component/custom/Button";
@@ -90,12 +90,15 @@ const Userdetail = ({ active, setActive }) => {
     },
   });
 
+
+
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <>
         <Header />
         <div className="row">
-          <div className="col-2">
+          <div className="col-2 sidebor">
             <Sidebar active={active} setActive={setActive} />
           </div>
           <div className="col-10">
