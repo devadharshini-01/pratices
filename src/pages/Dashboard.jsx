@@ -61,10 +61,6 @@ const Dashboard = ({ active, setActive }) => {
     dispatch(DashboardApiAction());
   }, []);
 
-  // useEffect(() => {
-  //   dispatch(UsersListApiAction(userData));
-  // }, []);
-
   return (
     <>
     
