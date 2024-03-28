@@ -6,14 +6,27 @@ import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import Model from "../component/custom/Model";
 import Table from "../component/custom/Table";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { DashboardApiAction } from "../Redux/Action/DashboardApiAction";
+import { UsersListApiAction } from "../Redux/Action/UsersListApiAction";
 
 const Dashboard = ({ active, setActive }) => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
+  const [userData, setUserData] = useState({
+    userType: "RETAILER",
+    sortBy: "joinedDate:DESC",       
+    page: 1,
+    size: 10,
+    });
   const location = useLocation();
+  const dispatch = useDispatch();
+  const store = useSelector((state) => state.dashboard.constantgetapi);
   const handleClose = () => setShow(false);
+
   const [deleteData, setDeleteData] = useState(null);
-  const [items, setItems] = useState(data.data.items);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     if (location.state && location.state.updatedValue) {
@@ -44,25 +57,38 @@ const Dashboard = ({ active, setActive }) => {
     setItems(updatedItems);
     setShow(false);
   };
+  useEffect(() => {
+    dispatch(DashboardApiAction());
+  }, []);
+
+  // useEffect(() => {
+  //   dispatch(UsersListApiAction(userData));
+  // }, []);
 
   return (
     <>
+    
       <Header />
       <div className="row">
-        <div className="col-2">
+        <div className="col-2 sidebor">
           <Sidebar active={active} setActive={setActive} />
         </div>
         <div className="col-10">
           <div className="card mt-5">
             <Table
               headersName={[
-                "displayId",
-                "companyName",
-                "phoneNumber",
-                "address",
+                // "displayId",
+                // "companyName",
+                // "phoneNumber",
+                // "address",
+                // "Actions",
+                "title",
+                "price",
+                "description",
                 "Actions",
               ]}
-              data={items}
+              data={store.data}
+              // data={items}
               handleClick={handleClick}
               handleDeleteClick={handleDeleteClick}
               Icon={

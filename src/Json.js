@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 export const data =  {
         "data": {                                                                                                                                                     
             "totalCount": 116,
-            "items": [
+            "items": [ 
                 {
                     "userId": "BFE5A09A-16E5-EE11-AAF0-6045BDD3029E",
                     "emailId": "testdisinvite@yopmail.com",
