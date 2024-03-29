@@ -1,28 +1,35 @@
+import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../component/custom/Header";
 import Sidebar from "../component/custom/Sidebar";
 import Table from "../component/custom/Table";
-import { useEffect, useState } from "react";
 import { UsersListApiAction } from "../Redux/Action/UsersListApiAction";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useLocation } from "react-router-dom";
 
 const Distributor = ({ active, setActive }) => {
   const dispatch = useDispatch();
-  const type =
-    window.location.pathname === "/Distributor" ? "DISTRIBUTOR" : "RETAILER";
+   
   const selector = useSelector((state) => state.userlist.userlistapi);
-  console.log(selector, "select");
-  const [userDetail, setUserDetail] = useState({
-    userType: type,
+  const [userDetail, setuserDetail] = useState({
+    userType:   "RETAILER",
     sortBy: "joinedDate:DESC",
     page: 1,
     size: 10,
   });
-
+  useEffect(() => {
+    setuserDetail({
+      ...userDetail,
+      userType:
+        window.location.pathname === "/Distributor"
+          ? "DISTRIBUTOR"
+          : "RETAILER"
+    });
+  }, [window.location.pathname]);
   useEffect(() => {
     dispatch(UsersListApiAction(userDetail));
-  }, [type]);
+  }, [userDetail]);
   useEffect(() => {
     if (!selector?.loading) {
       if (selector?.data?.length === 0 && selector?.error?.error) {
@@ -41,14 +48,25 @@ const Distributor = ({ active, setActive }) => {
         <div className="col-10">
           <div className="card mt-4">
             <Table
-              headersName={[
+              headersName={userDetail.userType=="RETAILER"?[
                 "displayId",
                 "companyName",
                 "address",
                 "monthlySales",
                 "joinedDate",
+                "Actions",
+                
+              ]:[
+                "displayId",
+                "companyName",
+                "address",
+                "monthlySales",
+                "joinedDate",
+                
+                
               ]}
               data={selector?.data?.data?.items}
+              isLoading={selector?.loading}
             />
           </div>
         </div>
