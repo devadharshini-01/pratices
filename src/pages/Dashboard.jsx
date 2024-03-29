@@ -1,46 +1,26 @@
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Icon } from "@iconify/react";
 import Header from "../component/custom/Header";
 import Sidebar from "../component/custom/Sidebar";
-import { data } from "../Json";
-import { useEffect, useState } from "react";
-import { Icon } from "@iconify/react";
 import Model from "../component/custom/Model";
 import Table from "../component/custom/Table";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
 import { DashboardApiAction } from "../Redux/Action/DashboardApiAction";
-import { UsersListApiAction } from "../Redux/Action/UsersListApiAction";
 
 const Dashboard = ({ active, setActive }) => {
   const navigate = useNavigate();
-  const [show, setShow] = useState(false);
-  const [userData, setUserData] = useState({
-    userType: "RETAILER",
-    sortBy: "joinedDate:DESC",       
-    page: 1,
-    size: 10,
-    });
   const location = useLocation();
   const dispatch = useDispatch();
-  const store = useSelector((state) => state.dashboard.constantgetapi);
+  let store = useSelector((state) => state.dashboard.constantgetapi);
+  const [show, setShow] = useState(false);
+  const [deleteData, setDeleteData] = useState(null);
+  // const [items, setItems] = useState(store.data);
+
   const handleClose = () => setShow(false);
 
-  const [deleteData, setDeleteData] = useState(null);
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    if (location.state && location.state.updatedValue) {
-      const state = location.state.updatedValue;
-
-      setItems(
-        items.map((item) => (item.userId === state.userId ? state : item))
-      );
-      setItems();
-    }
-  }, [location.state]);
-
-  const handleClick = (item) => {
-    navigate("/userdetail", { state: { item } });
+  const handleClick = (DD) => {
+    navigate("/userdetail", { state: { DD } });
   };
 
   const handleDeleteClick = (event, item) => {
@@ -50,20 +30,24 @@ const Dashboard = ({ active, setActive }) => {
   };
 
   const handleDelete = () => {
-    const updatedItems = items.filter(
-      (item) => item.userId !== deleteData.userId
-    );
-
-    setItems(updatedItems);
+    store.data = store.data.filter((value) => value.id !== deleteData.id);
     setShow(false);
   };
+
+  useEffect(() => {
+    if (location.state && location.state.updatedValue) {
+      const state = location.state.updatedValue;
+      store.data = store.data((prev) =>
+        prev.userId === state.userId ? state : prev
+      );
+    }
+  }, [location.state]);
+
   useEffect(() => {
     dispatch(DashboardApiAction());
   }, []);
-
   return (
     <>
-    
       <Header />
       <div className="row">
         <div className="col-2 sidebor">
@@ -72,19 +56,8 @@ const Dashboard = ({ active, setActive }) => {
         <div className="col-10">
           <div className="card mt-5">
             <Table
-              headersName={[
-                // "displayId",
-                // "companyName",
-                // "phoneNumber",
-                // "address",
-                // "Actions",
-                "title",
-                "price",
-                "description",
-                "Actions",
-              ]}
-              data={store.data}
-              // data={items}
+              headersName={["title", "price", "description", "Actions"]}
+              data={store?.data}
               handleClick={handleClick}
               handleDeleteClick={handleDeleteClick}
               Icon={
@@ -95,6 +68,7 @@ const Dashboard = ({ active, setActive }) => {
                   style={{ color: "black" }}
                 />
               }
+              isLoading={store?.loading}
             />
           </div>
         </div>
@@ -110,7 +84,6 @@ const Dashboard = ({ active, setActive }) => {
           }
           button2Color={"bg-black"}
           button1Value={"Delete"}
-          // button2Value={"cancel"}
           button1Color={"bg-danger"}
           button2Click={handleClose}
           button1Click={handleDelete}

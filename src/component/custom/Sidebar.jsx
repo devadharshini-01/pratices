@@ -3,7 +3,7 @@ import { UsersListApiAction } from "../../Redux/Action/UsersListApiAction";
 import { useDispatch } from "react-redux";
 
 const Sidebar = (props) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   return (
     <>
       <div className="list-group mt-3 ">
@@ -47,7 +47,10 @@ const Sidebar = (props) => {
             Distributor
           </p>
         </Link>
-        <Link to="/retailer" onClick={() => dispatch(UsersListApiAction({type:""}))}>
+        <Link
+          to="/retailer"
+          // onClick={() => dispatch(UsersListApiAction({ type: "LIST_RESET" }))}
+        >
           {" "}
           <p
             className={`${
