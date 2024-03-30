@@ -11,11 +11,13 @@ const Table = ({
 }) => {
   return (
     <>
-      <table className="table">
+      <table className="table mt-3 p-3 rounded-bottom">
         <thead>
           <tr>
             {headersName?.map((item) => {
-              return <th>{item}</th>;
+              return (
+           <th>{item.displayName}</th>
+              )
             })}
           </tr>
         </thead>
