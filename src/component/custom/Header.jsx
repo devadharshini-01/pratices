@@ -4,36 +4,28 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <>
-      <nav class="navbar bg-body-tertiary">
+      <nav class="navbar bg-white mt-4 rounded-3">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <img
-              src="/docs/5.3/assets/brand/bootstrap-logo.svg"
-              alt="Logo"
-              width="30"
-              height="24"
-              class="d-inline-block align-text-top"
-            />
-            Bootstrap
+          <a class="navbar-brand red-color " href="#">
+          
+    <b>Distributor</b> 
           </a>
           <div class="dropdown">
-            <Icon
-              className="icon"
-              icon="gridicons:user-circle"
-              width="25"
-              height="25"
-            />
+           <span class="badge text-bg-secondary">D</span>
             <button
               class="btn dropdown-toggle"
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Devadharshini
+            
             </button>
 
             <ul class="dropdown-menu">
               <li>
+                <Link to="/" class="dropdown-item">
+                  Change Password
+                </Link>
                 <Link to="/" class="dropdown-item">
                   Logout
                 </Link>

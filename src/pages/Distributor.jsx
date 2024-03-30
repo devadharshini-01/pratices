@@ -7,6 +7,10 @@ import Table from "../component/custom/Table";
 import { UsersListApiAction } from "../Redux/Action/UsersListApiAction";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
+import   "../App.css";
+import Search from "../component/custom/Search";
+import Button  from "../component/custom/Button";
+import { Icon, InlineIcon } from "@iconify/react";
 
 const Distributor = ({ active, setActive }) => {
   const dispatch = useDispatch();
@@ -40,37 +44,62 @@ const Distributor = ({ active, setActive }) => {
 
   return (
     <>
-      <Header />
-      <div className="row">
-        <div className="col-2 sidebor">
+    <div className="overflow-hidden">
+      <div className="vh-100">
+      <div className="row ">
+        <div className="col-2 bg-white  rounded-end-5 ">
           <Sidebar active={active} setActive={setActive} />
         </div>
-        <div className="col-10">
-          <div className="card mt-4">
+ 
+        <div className="col-10 ">
+    <div className=" overflow-scroll vh-100 ">
+    <Header />
+        <div className="row">
+          <div className="col-9 ">
+          <Search/>
+          </div>
+        
+          <div class=" col-3 d-flex gap-2 ">
+          <Button buttonName="Add" color="white" Icon={<InlineIcon icon="uil:plus" width="15" height="15"  style={{color: "black"}} />}/>
+         <Button buttonName="Invite" color="white" Icon={<InlineIcon  icon="mdi:account-multiple-plus" width="15" height="15"  style={{color:" black"}} />} />
+</div>
+        </div>
+     
             <Table
               headersName={userDetail.userType=="RETAILER"?[
-                "displayId",
-                "companyName",
-                "address",
-                "monthlySales",
-                "joinedDate",
-                "Actions",
+                {name:"displayId",displayName:"RetailerId"},
+                {name:"companyName",displayName:"RetailerName"},
+                {name:"address",displayName:"Location"},
+                {name: "monthlySales",displayName:"joined Date"},
+                {name: "joinedDate",displayName:"No of Locations"},
+                {name: "Actions",displayName:"No of Orders"},
+   
+             
                 
               ]:[
-                "displayId",
-                "companyName",
-                "address",
-                "monthlySales",
-                "joinedDate",
+                {name:"displayId",displayName:"DistributorId"},
+                {name:"companyName",displayName:"DistributorName"},
+                {name:"address",displayName:"Location"},
+                {name:"monthlySales",displayName:"ERP/INV System"},
+                {name:"joineDate",displayName:"Linked Retailers"},
+                {name:"joineDate",displayName:"Monthly Orders"},
+            
                 
                 
               ]}
+              
               data={selector?.data?.data?.items}
               isLoading={selector?.loading}
             />
+    </div>
+     
           </div>
         </div>
       </div>
+    </div>
+    
+   
+
       <ToastContainer />
     </>
   );

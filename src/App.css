@@ -1,7 +1,20 @@
-.link-style {
-    text-decoration: none;
-  }
-  .sidebor
-  {
-    background-color:oldlace !important;
-  }
+body
+{
+ background-color:#ecebeb !important;
+}
+.red-color
+{
+  color:#b20036 !important;
+  font-size:20px !important;
+}
+.bg-color
+{
+  background-color: #b20036 !important;
+}                         
+.sidebar:hover{
+  background-color: #b20036 !important;
+}
+a:link
+{
+  text-decoration-line: none !important;
+}

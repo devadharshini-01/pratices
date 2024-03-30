@@ -4,17 +4,26 @@ import { useDispatch } from "react-redux";
 
 const Sidebar = (props) => {
   // const dispatch = useDispatch();
+  const data = [
+    "Dashboard",
+    "userDetail",
+"Distributor",
+"Retailer",
+] 
+
+
   return (
     <>
-      <div className="list-group mt-3 ">
+      {/* <div className="list-group mt-4 p-2">
+      <b className="red-color " >vinobridge</b>
         <Link to="/Dashboard">
           {" "}
           <p
             className={`${
               props.active === "Dashboard"
-                ? "p-2 bg-white rounded-3  text-danger"
-                : "text-primary"
-            } p-2 fontsize hover  `}
+                ? "p-2 sidebar rounded-3 mt-3  text-white"
+                : "text-black"
+            } p-2 fontsize  a:link `}
             onClick={() => props.setActive("Dashboard")}
           >
             Dashboard
@@ -25,9 +34,9 @@ const Sidebar = (props) => {
           <p
             className={`${
               props.active === "userdetail"
-                ? " p-2 bg-white rounded-3  text-danger"
-                : "text-primary"
-            } p-2 hover list-group  fontsize `}
+                ? " p-2 bg-white rounded-3 mt-3 text-white"
+                : "text-black"
+            } p-2  list-group  fontsize `}
             onClick={() => props.setActive("userdetail")}
           >
             Userdetail
@@ -39,8 +48,8 @@ const Sidebar = (props) => {
           <p
             className={`${
               props.active === "distributor"
-                ? " p-2 bg-white rounded-3  text-danger"
-                : "text-primary"
+                ? " p-2 bg-danger rounded-3 mt-3  text-white"
+                : "text-black"
             } p-2 hover list-group  fontsize `}
             onClick={() => props.setActive("distributor")}
           >
@@ -55,14 +64,35 @@ const Sidebar = (props) => {
           <p
             className={`${
               props.active === "distributor"
-                ? " p-2 bg-white rounded-3  text-danger"
-                : "text-primary"
+                ? " p-2 bg-danger rounded-3 mt-3 text-white"
+                : "text-black"
             } p-2 hover list-group  fontsize `}
           >
             Retailer
           </p>
         </Link>
+      </div> */}
+    
+      <div className="list-group">
+        <b className="red-color p-4">Vinobridge</b>
+      {data.map((value)=>{
+        return(
+          <Link to={`/${value}`}>
+          {" "}            <p
+            className={`${
+              props.active === value
+                ? " p-2 bg-danger rounded-3  text-white"
+                : "text-black"
+            } p-2 hover list-group  fontsize `}
+            onClick={() => props.setActive(value)}
+          >
+            {value }
+          </p>
+        </Link>
+        )
+      })}
       </div>
+   
     </>
   );
 };
