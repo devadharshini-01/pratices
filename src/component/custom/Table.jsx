@@ -8,16 +8,51 @@ const Table = ({
   handleDeleteClick,
   handleClick,
   isLoading,
+  handleSort,
+  
 }) => {
   return (
     <>
-      <table className="table mt-3 p-3 rounded-bottom">
+      <table className="table mt-3 p-3 rounded-bottom ">
         <thead>
           <tr>
             {headersName?.map((item) => {
               return (
-           <th>{item.displayName}</th>
-              )
+                <>
+                  <th className="text-nowrap w-1 ">
+                    <div className="d-flex justify-content-between">
+
+                  
+                    <div>
+                    {item?.displayName}
+
+                    </div>
+                
+                   {item.sort&& <div className=" d-flex flex-column flex-wrap">
+                    
+
+                      <>
+                      <InlineIcon
+                        icon="fe:arrow-up"
+                        width="15"
+                        height="15"
+                        style={{ color: "black" }}
+                        onClick={()=>handleSort(`${item.name}:ASC`)}
+                      />
+                      <InlineIcon
+                        icon="ep:arrow-down-bold"
+                        width="10"
+                        height="10"
+                        style={{ color: "black" }}
+                        onClick={()=>handleSort(`${item.name}:DESC`)}
+                        
+                      /></>
+                      
+                    </div>}
+                    </div>
+                  </th>
+                </>
+              );
             })}
           </tr>
         </thead>
@@ -70,7 +105,7 @@ const Table = ({
                     {headersName?.map((item) => {
                       return (
                         <>
-                          {item === "Actions" ? (
+                          {item.name === "Actions" ? (
                             <td
                               onClick={(event) =>
                                 handleDeleteClick(event, item)
@@ -79,7 +114,7 @@ const Table = ({
                               {Icon}{" "}
                             </td>
                           ) : (
-                            <td>{val[item]} </td>
+                            <td>{val[item.name]} </td>
                           )}
                         </>
                       );

@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "../component/custom/Button";
 import Input from "../component/custom/Input";
+import { InlineIcon } from "@iconify/react";
 
 const initialValues = {
   userId: "",
@@ -96,18 +97,19 @@ const Userdetail = ({ active, setActive }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <>
-        <Header />
+ 
         <div className="row">
-          <div className="col-2 sidebor">
+          <div className="col-2 bg-white rounded-end-5 sidebor">
             <Sidebar active={active} setActive={setActive} />
           </div>
           <div className="col-10">
+          <Header />
             <div className="row">
               <div className="col-9">
                 <Button
                   type="button"
                   buttonName="Back"
-                  color="primary"
+                  color="white"
                   onClick={() =>
                     navigate("/Dashboard", { state: { updatedValue } })
                   }
@@ -117,16 +119,17 @@ const Userdetail = ({ active, setActive }) => {
                 <Button
                   type="button"
                   onClick={() => setEdit(!edit)}
-                  color="primary"
+                  color="white"
                   buttonName={edit ? "cancel" : "edit"}
+                  Icon={<InlineIcon   icon="mage:edit" width="15" height="15"   />}
                 />
               </div>
             </div>
 
-            <div className="card mt-5">
+            <div className="card border-0 p-3 mt-5">
               <div className="row">
                 <div className="col-4">
-                  <b>UserID</b>
+                <b>UserID</b>
                   {edit ? (
                     <Input
                       name="userId"
