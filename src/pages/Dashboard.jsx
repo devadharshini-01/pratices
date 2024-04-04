@@ -48,12 +48,13 @@ const Dashboard = ({ active, setActive }) => {
   }, []);
   return (
     <>
-      <Header />
+
       <div className="row">
-        <div className="col-2 sidebor">
+        <div className="col-2 bg-white rounded-end-5 sidebor">
           <Sidebar active={active} setActive={setActive} />
         </div>
         <div className="col-10">
+        <Header />
           <div className="card mt-5">
             <Table
               headersName={["title", "price", "description", "Actions"]}

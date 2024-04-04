@@ -11,7 +11,7 @@ const Header = () => {
     <b>Distributor</b> 
           </a>
           <div class="dropdown">
-           <span class="badge text-bg-secondary">D</span>
+           <span class="badge text-bg-danger">D</span>
             <button
               class="btn dropdown-toggle"
               type="button"
