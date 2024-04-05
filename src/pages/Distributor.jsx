@@ -8,12 +8,12 @@ import Sidebar from "../component/custom/Sidebar";
 import Table from "../component/custom/Table";
 import { UsersListApiAction } from "../Redux/Action/UsersListApiAction";
 import "../App.css";
-
 import Button from "../component/custom/Button";
 import { InlineIcon } from "@iconify/react";
 import ReactPaginate from "react-paginate";
 import moment from "moment";
 import Input from "../component/custom/Input";
+import { DistributorHeaderName, RetailerHeaderName } from "../Constant";
 
 const Distributor = ({ active, setActive }) => {
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ const Distributor = ({ active, setActive }) => {
           : "RETAILER",
     });
   }, [window.location.pathname]);
+
   useEffect(() => {
     dispatch(UsersListApiAction(userDetail));
   }, [userDetail]);
@@ -55,9 +56,11 @@ const handleSort = (item) => {
     setuserDetail({ ...userDetail, page: event.selected + 1 });
     setPaginate(event.selected + 1);
   };
-  const handleClick = (DD) => {
-    navigate("/userdetail", { state: { DD } });
+  const handleClick =  (DD) => {
+     navigate("/userdetail", { state: { DD } });
   };
+
+
   return (
     <>
       <div className="overflow-hidden">
@@ -77,7 +80,7 @@ const handleSort = (item) => {
                         placeholder="search"
                         className={"w-25"}
                         onChange={(event) => {
-                          if (event.target.value != "") {
+                          if (event.target.value !== "") {
                             setuserDetail({
                               ...userDetail,
                               searchTerm: event.target.value,
@@ -96,6 +99,7 @@ const handleSort = (item) => {
                       <Button
                         buttonName="Add"
                         color="white"
+                        className="pe-none"
                         red="danger"
                         Icon={
                           <InlineIcon icon="uil:plus" width="15" height="15" />
@@ -105,6 +109,7 @@ const handleSort = (item) => {
                         buttonName="Invite"
                         color="white"
                         red="danger"
+                        className="pe-none"
                         Icon={
                           <InlineIcon
                             icon="mdi:account-multiple-plus"
@@ -119,66 +124,9 @@ const handleSort = (item) => {
                   <div className="table-container ">
                     <Table
                       headersName={
-                        userDetail.userType == "RETAILER"
-                          ? [
-                              { name: "displayId", displayName: "RetailerId" },
-                              {
-                                name: "companyName",
-                                displayName: "RetailerName",
-                              },
-                              { name: "address", displayName: "Location" },
-                              {
-                                name: "joinedDate",
-
-                                displayName: "joinedDate",
-                              },
-                              {
-                                name: "numberOfStoreLocations",
-
-                                displayName: "No of Locations",
-                              },
-                              {
-                                name: "monthlySalesSort",
-                                displayName: "No of Orders",
-                              },
-                              {
-                                name: "Actions",
-                                displayName: "Actions",
-                              },
-                            ]
-                          : [
-                              {
-                                name: "displayId",
-                                displayName: "DistributorId",
-                                sort: true,
-                              },
-                              {
-                                name: "companyName",
-                                displayName: "DistributorName",
-                                sort: true,
-                              },
-                              {
-                                name: "address",
-                                displayName: "Location",
-                                sort: false,
-                              },
-                              {
-                                name: "ENVB",
-                                displayName: "ERP/INV System",
-                              },
-                              {
-                                name: "noOfMappedRetailers",
-                                displayName: "Linked Retailers",
-                              },
-                              {
-                                name: "monthlyOrders",
-                                displayName: "Monthly Orders",
-                              },
-                              {
-                                name: "monthlySales",
-                                displayName: "monthlySales",
-                              },
-                            ]
+                        userDetail.userType ===  "RETAILER"
+                          ? RetailerHeaderName
+                          :DistributorHeaderName
                       }
                       data={
                         selector?.data && selector?.data?.data?.items
@@ -194,6 +142,7 @@ const handleSort = (item) => {
                       isLoading={selector?.loading}
                       handleSort={handleSort}
                       handleClick={handleClick}
+                   
                       Icon={
                         <InlineIcon
                           icon="pajamas:remove"
@@ -220,7 +169,7 @@ const handleSort = (item) => {
                               size: event.target.value,
                             })
                           }
-                          class="form-select w-25"
+                          className="form-select w-25"
                           aria-label="Default select example"
                         >
                           <option value="10">10</option>
@@ -230,7 +179,7 @@ const handleSort = (item) => {
                           <option value="50">50</option>
                         </select>
                       </div>
-                      <div>
+                      <div className="p-2">
                         <ReactPaginate
                           previousLabel={"previous"}
                           nextLabel={"next"}
