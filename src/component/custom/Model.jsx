@@ -12,7 +12,6 @@ const Model = ({
   button2Click,
   button1Color,
   button2Color,
-  edit,
 }) => {
   return (
     <>
@@ -22,22 +21,24 @@ const Model = ({
         </Modal.Header>
         <Modal.Body>{body}</Modal.Body>
         <Modal.Footer>
-         
-         {button1Value&& <Button
-            variant="secondary"
-            className={button1Color}
-            onClick={button1Click}
-          >
-            {button1Value}
-          </Button>}
-          {button2Value&&
-          <Button
-            variant="secondary"
-            className={button2Color}
-            onClick={button2Click}
-          >
-            {button2Value}
-          </Button>}
+          {button1Value && (
+            <Button
+              variant="secondary"
+              className={button1Color}
+              onClick={button1Click}
+            >
+              {button1Value}
+            </Button>
+          )}
+          {button2Value && (
+            <Button
+              variant="secondary"
+              className={button2Color}
+              onClick={button2Click}
+            >
+              {button2Value}
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     </>

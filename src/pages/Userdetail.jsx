@@ -1,7 +1,7 @@
 import Sidebar from "../component/custom/Sidebar";
 import Header from "../component/custom/Header";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "../component/custom/Button";
@@ -73,7 +73,8 @@ const validationSchema = yup.object().shape({
 
 const Userdetail = ({ active, setActive }) => {
   const location = useLocation();
-  const initialVal = location?.state?.item;
+  const initialVal = location?.state.DD;
+
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
 
@@ -81,6 +82,7 @@ const Userdetail = ({ active, setActive }) => {
 
   const handleFormSubmit = async (values) => {
     setUpdatedValues(values);
+    setEdit(false);
   };
 
   const formik = useFormik({
@@ -91,19 +93,15 @@ const Userdetail = ({ active, setActive }) => {
     },
   });
 
-
-
-
   return (
     <form onSubmit={formik.handleSubmit}>
       <>
- 
         <div className="row">
           <div className="col-2 bg-white rounded-end-5 sidebor">
             <Sidebar active={active} setActive={setActive} />
           </div>
           <div className="col-10">
-          <Header />
+            <Header />
             <div className="row">
               <div className="col-9">
                 <Button
@@ -121,7 +119,7 @@ const Userdetail = ({ active, setActive }) => {
                   onClick={() => setEdit(!edit)}
                   color="white"
                   buttonName={edit ? "cancel" : "edit"}
-                  Icon={<InlineIcon   icon="mage:edit" width="15" height="15"   />}
+                  Icon={<InlineIcon icon="mage:edit" width="15" height="15" />}
                 />
               </div>
             </div>
@@ -129,7 +127,7 @@ const Userdetail = ({ active, setActive }) => {
             <div className="card border-0 p-3 mt-5">
               <div className="row">
                 <div className="col-4">
-                <b>UserID</b>
+                  <b>UserID</b>
                   {edit ? (
                     <Input
                       name="userId"
@@ -180,7 +178,7 @@ const Userdetail = ({ active, setActive }) => {
 
                   {edit ? (
                     <Input
-                      name="actionkey"
+                      name="activationKey"
                       value={formik.values.activationKey}
                       onChange={formik.handleChange}
                     />
