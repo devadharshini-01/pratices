@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 import Header from "../component/custom/Header";
 import Sidebar from "../component/custom/Sidebar";
 import Table from "../component/custom/Table";
 import { UsersListApiAction } from "../Redux/Action/UsersListApiAction";
-import "react-toastify/dist/ReactToastify.css";
-import { useLocation } from "react-router-dom";
 import "../App.css";
-
 import Button from "../component/custom/Button";
-import { Icon, InlineIcon } from "@iconify/react";
+import { InlineIcon } from "@iconify/react";
 import ReactPaginate from "react-paginate";
 import moment from "moment";
 import Input from "../component/custom/Input";
+import { DistributorHeaderName, RetailerHeaderName } from "../Constant";
 
 const Distributor = ({ active, setActive }) => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const selector = useSelector((state) => state.userlist.userlistapi);
-  const[paginate,setPaginate] = useState()
+  const [paginate, setPaginate] = useState();
   const [userDetail, setuserDetail] = useState({
     userType: "RETAILER",
     sortBy: "joinedDate:DESC",
@@ -36,6 +36,7 @@ const Distributor = ({ active, setActive }) => {
           : "RETAILER",
     });
   }, [window.location.pathname]);
+
   useEffect(() => {
     dispatch(UsersListApiAction(userDetail));
   }, [userDetail]);
@@ -47,18 +48,18 @@ const Distributor = ({ active, setActive }) => {
       }
     }
   }, [selector?.error]);
-  console.log(selector?.data?.data, "hii");
-  const handleSort = (item) => {
+const handleSort = (item) => {
     setuserDetail({ ...userDetail, sortBy: item });
-    console.log(item, "ss");
   };
-const page=Math.ceil(selector?.data?.data?.totalCount/userDetail.size)
-const handlePageClick=(event)=>{
-setuserDetail({...userDetail,page:event.selected+1})
-setPaginate(event.selected+1)
-  console.log(event,"e");
+  const page = Math.ceil(selector?.data?.data?.totalCount / userDetail.size);
+  const handlePageClick = (event) => {
+    setuserDetail({ ...userDetail, page: event.selected + 1 });
+    setPaginate(event.selected + 1);
+  };
+  const handleClick =  (DD) => {
+     navigate("/userdetail", { state: { DD } });
+  };
 
-}
 
   return (
     <>
@@ -79,17 +80,16 @@ setPaginate(event.selected+1)
                         placeholder="search"
                         className={"w-25"}
                         onChange={(event) => {
-                          if (event.target.value != "") {
+                          if (event.target.value !== "") {
                             setuserDetail({
                               ...userDetail,
                               searchTerm: event.target.value,
-                              page:1
+                              page: 1,
                             });
                           } else {
                             const { searchTerm, ...value } = userDetail;
                             setuserDetail(value);
-                            setuserDetail({...userDetail,page:paginate})
-                            
+                            setuserDetail({ ...userDetail, page: paginate });
                           }
                         }}
                       />
@@ -99,6 +99,7 @@ setPaginate(event.selected+1)
                       <Button
                         buttonName="Add"
                         color="white"
+                        className="pe-none"
                         red="danger"
                         Icon={
                           <InlineIcon icon="uil:plus" width="15" height="15" />
@@ -108,6 +109,7 @@ setPaginate(event.selected+1)
                         buttonName="Invite"
                         color="white"
                         red="danger"
+                        className="pe-none"
                         Icon={
                           <InlineIcon
                             icon="mdi:account-multiple-plus"
@@ -122,66 +124,9 @@ setPaginate(event.selected+1)
                   <div className="table-container ">
                     <Table
                       headersName={
-                        userDetail.userType == "RETAILER"
-                          ? [
-                              { name: "displayId", displayName: "RetailerId" },
-                              {
-                                name: "companyName",
-                                displayName: "RetailerName",
-                              },
-                              { name: "address", displayName: "Location" },
-                              {
-                                name: "joinedDate",
-
-                                displayName: "joinedDate",
-                              },
-                              {
-                                name: "numberOfStoreLocations",
-
-                                displayName: "No of Locations",
-                              },
-                              {
-                                name: "monthlySalesSort",
-                                displayName: "No of Orders",
-                              },
-                              {
-                                name: "Actions",
-                                displayName: "Actions",
-                              },
-                            ]
-                          : [
-                              {
-                                name: "displayId",
-                                displayName: "DistributorId",
-                                sort: true,
-                              },
-                              {
-                                name: "companyName",
-                                displayName: "DistributorName",
-                                sort: true,
-                              },
-                              {
-                                name: "address",
-                                displayName: "Location",
-                                sort: false,
-                              },
-                              {
-                                name: "ENVB",
-                                displayName: "ERP/INV System",
-                              },
-                              {
-                                name: "noOfMappedRetailers",
-                                displayName: "Linked Retailers",
-                              },
-                              {
-                                name: "monthlyOrders",
-                                displayName: "Monthly Orders",
-                              },
-                              {
-                                name: "monthlySales",
-                                displayName: "monthlySales",
-                              },
-                            ]
+                        userDetail.userType ===  "RETAILER"
+                          ? RetailerHeaderName
+                          :DistributorHeaderName
                       }
                       data={
                         selector?.data && selector?.data?.data?.items
@@ -196,6 +141,8 @@ setPaginate(event.selected+1)
                       }
                       isLoading={selector?.loading}
                       handleSort={handleSort}
+                      handleClick={handleClick}
+                   
                       Icon={
                         <InlineIcon
                           icon="pajamas:remove"
@@ -210,23 +157,29 @@ setPaginate(event.selected+1)
                   <div className="card border-0">
                     <div className="d-flex justify-content-between">
                       <div className="d-flex">
-                        
-                      <label>Showing 1 to {userDetail.size} of {selector?.data?.data?.totalCount} entries</label>
-                      
+                        <label>
+                          Showing 1 to {userDetail.size} of{" "}
+                          {selector?.data?.data?.totalCount} entries
+                        </label>
+
                         <select
-                         onChange={(event)=>setuserDetail({...userDetail,size:event.target.value})}
-                          class="form-select w-25"
+                          onChange={(event) =>
+                            setuserDetail({
+                              ...userDetail,
+                              size: event.target.value,
+                            })
+                          }
+                          className="form-select w-25"
                           aria-label="Default select example"
                         >
-                          
-                          <option value="10">10</option> 
+                          <option value="10">10</option>
                           <option value="20">20</option>
                           <option value="30">30</option>
                           <option value="40">40</option>
                           <option value="50">50</option>
                         </select>
                       </div>
-                      <div>
+                      <div className="p-2">
                         <ReactPaginate
                           previousLabel={"previous"}
                           nextLabel={"next"}
@@ -244,11 +197,6 @@ setPaginate(event.selected+1)
                         />{" "}
                       </div>
                     </div>
-                    {/* <div className="d-flex  justify-content-between  ">
-                      <div></div>
-
-                      <div className="row mt-2 ms-2 w-100"></div>
-                    </div> */}
                   </div>
                 </div>
               </div>
