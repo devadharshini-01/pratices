@@ -39,10 +39,10 @@ const validationSchema = yup.object().shape({
   joinedDate: yup.string().required("required"),
 });
 
-const Userdetail = ( ) => {
+const Userdetail = ( {active,setActive}) => {
   const location = useLocation();
   const initialVal = location?.state.DD;
-
+const returnPath = localStorage.getItem("ReturnPath")
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
 
@@ -50,6 +50,7 @@ const Userdetail = ( ) => {
 
   const handleFormSubmit =  (values) => {
     setUpdatedValues(values);
+    
     setEdit(false);
   };
 
@@ -66,7 +67,7 @@ const Userdetail = ( ) => {
       <>
         <div className="row">
           <div className="col-2 bg-white rounded-end-5 sidebor">
-            <Sidebar  />
+            <Sidebar  active={active} setActive={setActive}/>
           </div>
           <div className="col-10">
             <Header />
@@ -77,7 +78,7 @@ const Userdetail = ( ) => {
                   buttonName="Back"
                   color="white"
                   onClick={() =>
-                    navigate("/Dashboard", { state: { updatedValue } })
+                    navigate(returnPath)
                   }
                 />
               </div>

@@ -14,7 +14,7 @@ const Table = ({
       <table className="table mt-3 p-3 rounded-bottom ">
         <thead>
           <tr>
-            {headersName?.map((item) => {
+            {Array.isArray(headersName)&&headersName?.map((item) => {
               return (
                 <>
                   <th className="text-nowrap w-1 ">
@@ -22,19 +22,19 @@ const Table = ({
                       <div>{item?.displayName}</div>
 
                       {item.sort && (
-                        <div className=" d-flex flex-column flex-wrap">
+                        <div className=" d-flex flex-column flex-wrap p- mb-2">
                           <>
                             <InlineIcon
                               icon="fe:arrow-up"
-                              width="15"
-                              height="15"
+                              width="7"
+                              height="7"
                               style={{ color: "black" }}
                               onClick={() => handleSort(`${item.name}:ASC`)}
                             />
                             <InlineIcon
                               icon="ep:arrow-down-bold"
-                              width="10"
-                              height="10"
+                              width="7"
+                              height="7"
                               style={{ color: "black" }}
                               onClick={() => handleSort(`${item.name}:DESC`)}
                             />

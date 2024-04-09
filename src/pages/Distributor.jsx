@@ -48,7 +48,7 @@ const Distributor = ({ active, setActive }) => {
       }
     }
   }, [selector?.error]);
-const handleSort = (item) => {
+  const handleSort = (item) => {
     setuserDetail({ ...userDetail, sortBy: item });
   };
   const page = Math.ceil(selector?.data?.data?.totalCount / userDetail.size);
@@ -56,10 +56,10 @@ const handleSort = (item) => {
     setuserDetail({ ...userDetail, page: event.selected + 1 });
     setPaginate(event.selected + 1);
   };
-  const handleClick =  (DD) => {
-     navigate("/userdetail", { state: { DD } });
+  const handleClick = (DD) => {
+    localStorage.setItem("ReturnPath", window.location.pathname);
+    navigate("/userdetail", { state: { DD } });
   };
-
 
   return (
     <>
@@ -72,7 +72,9 @@ const handleSort = (item) => {
 
             <div className="col-10 ">
               <div className="d-flex vh-100 flex-column overflow-auto">
-                <Header />
+                <Header title={userDetail?.userType}
+                  
+                />
                 <div className="flex-grow-1 overflow-x-hidden pb-80px">
                   <div className="row">
                     <div className="col-9 ">
@@ -88,11 +90,14 @@ const handleSort = (item) => {
                             });
                           } else {
                             const { searchTerm, ...value } = userDetail;
+                      
                             setuserDetail(value);
+                            
                             setuserDetail({ ...userDetail, page: paginate });
                           }
                         }}
                       />
+                      {console.log(userDetail,"user")}
                     </div>
 
                     <div class=" col-3 d-flex gap-2 ">
@@ -124,9 +129,9 @@ const handleSort = (item) => {
                   <div className="table-container ">
                     <Table
                       headersName={
-                        userDetail.userType ===  "RETAILER"
+                        userDetail.userType === "RETAILER"
                           ? RetailerHeaderName
-                          :DistributorHeaderName
+                          : DistributorHeaderName
                       }
                       data={
                         selector?.data && selector?.data?.data?.items
@@ -142,7 +147,6 @@ const handleSort = (item) => {
                       isLoading={selector?.loading}
                       handleSort={handleSort}
                       handleClick={handleClick}
-                   
                       Icon={
                         <InlineIcon
                           icon="pajamas:remove"

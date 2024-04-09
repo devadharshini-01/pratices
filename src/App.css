@@ -21,7 +21,16 @@ a:link
 .flex
 {
   display: flex;
-  
-
-
-}
+  }
+  .input-color
+  {
+    background-color: #e8f0fe;
+  }
+  .vinobridge
+  {
+    font-size:30px !important;
+  }
+  .size
+  {
+    width:380px !important;
+  }

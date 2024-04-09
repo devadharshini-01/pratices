@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({title}) => {
   return (
     <>
       <nav class="navbar bg-white mt-4 rounded-3">
         <div class="container-fluid">
           <a class="navbar-brand red-color " href="#">
-            <b>Distributor</b>
+            <b>{title}</b>
           </a>
           <div class="dropdown">
             <span class="badge text-bg-danger">D</span>
