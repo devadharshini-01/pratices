@@ -6,6 +6,7 @@ import Button from "../../component/custom/Button";
 import logo from "../../images/logo.PNG";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { DistributorData, RetailerData } from "../../Constant";
 
 const initialValues = {
   username: "",
@@ -15,36 +16,20 @@ const validationSchema = yup.object().shape({
   username: yup.string().required("username is required"),
   password: yup.string().required("password  required"),
 });
-
-const Login = ({setIsAuthenticated}) => {
+const loginCredential = ["Admin", "Distributor", "Retailer"];
+const Login = () => {
   const navigate = useNavigate();
 
-
-  const handleFormSubmit = (values,event) => {
+  const handleFormSubmit = (values, event) => {
     console.log(values);
+
     if (
-      values.username === "admin" && 
-      values.password === "Vinifera@1234"
+      loginCredential.includes(values.username) &&
+      values.password === "Test@1234"
     ) {
-      setIsAuthenticated(true); 
-      navigate("/Distributor"); 
-      // console.log(values,"values");
-      
-    } else if (
-      values.username === "distributor" && 
-      values.password === "Vinifera@1234"
-    ){
-      setIsAuthenticated(true); 
-      navigate("/Distributor"); 
-   
-    }else if (
-      values.username === "retailer" && 
-      values.password === "Vinifera@1234"
-    ){
-      setIsAuthenticated(true); 
-      navigate("/Distributor");
-  
-    }else{
+      localStorage.setItem("userType", values.username);
+      navigate("/dashboard")
+    } else {
       toast.error("Incorrect username or password");
     }
   };
@@ -57,7 +42,6 @@ const Login = ({setIsAuthenticated}) => {
     },
   });
 
-  
   return (
     <form onSubmit={formik.handleSubmit}>
       <>
@@ -67,7 +51,7 @@ const Login = ({setIsAuthenticated}) => {
           <h4 className="text-center">Sign with your email address</h4>
           <div>
             <label for="exampleFormControlInput1" class="form-label">
-           User name
+              User name
             </label>
             <input
               type="username"

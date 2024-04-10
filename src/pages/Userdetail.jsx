@@ -39,7 +39,7 @@ const validationSchema = yup.object().shape({
   joinedDate: yup.string().required("required"),
 });
 
-const Userdetail = ( {active,setActive}) => {
+const Userdetail = ( ) => {
   const location = useLocation();
   const initialVal = location?.state.DD;
 const returnPath = localStorage.getItem("ReturnPath")
@@ -67,7 +67,7 @@ const returnPath = localStorage.getItem("ReturnPath")
       <>
         <div className="row">
           <div className="col-2 bg-white rounded-end-5 sidebor">
-            <Sidebar  active={active} setActive={setActive}/>
+            <Sidebar />
           </div>
           <div className="col-10">
             <Header />

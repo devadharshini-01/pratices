@@ -15,7 +15,7 @@ import moment from "moment";
 import Input from "../component/custom/Input";
 import { DistributorHeaderName, RetailerHeaderName } from "../Constant";
 
-const Distributor = ({ active, setActive }) => {
+const Distributor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const selector = useSelector((state) => state.userlist.userlistapi);
@@ -67,7 +67,7 @@ const Distributor = ({ active, setActive }) => {
         <div className="vh-100">
           <div className="row ">
             <div className="col-2 bg-white  rounded-end-5 ">
-              <Sidebar active={active} setActive={setActive} />
+              <Sidebar  />
             </div>
 
             <div className="col-10 ">

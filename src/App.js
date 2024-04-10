@@ -5,54 +5,26 @@ import Signin from "./pages/Signin";
 import Userdetail from "./pages/Userdetail";
 import Distributor from "./pages/Distributor";
 import { PrivateRoute } from "./pages/PrivateRoute";
-// Constant.js
-export const Retailer = "Retailer";
+import WorkinProgress from "./pages/WorkinProgress";
 
 export const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [active, setActive] = useState();
-console.log(isAuthenticated,"isAuth");
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route
             path="/"
-            element={
-              isAuthenticated ? (
-                <Navigate to="/Distributor" />
-              ) : (
-                <Login setIsAuthenticated={setIsAuthenticated} />
-              )
-            }
+            element={<Login setIsAuthenticated={setIsAuthenticated} />}
           />
-          <Route
-            path="/Distributor"
-            isAuthenticated={isAuthenticated}
-            element={
-              // <PrivateRoute isAuthenticated={isAuthenticated}>
-                <Distributor isAuthenticated={isAuthenticated} active={active} setActive={setActive} />
-            //  </PrivateRoute>
-            }
-          />
-          {/* <Route
-            path="/Retailer"
-            isAuthenticated={isAuthenticated}
-            element={
-            //  <PrivateRoute isAuthenticated={isAuthenticated}>
-                <Retailer isAuthenticated={isAuthenticated} active={active} setActive={setActive} />
-              // </PrivateRoute> 
-            }
-          /> */}
-          <Route
-            path="/userdetail"
-            isAuthenticated={isAuthenticated}
-            element={
-             
-                <Userdetail isAuthenticated={isAuthenticated} active={active} setActive={setActive} />
-           
-            }
-          />
+          <Route path="/Distributor" element={<Distributor />} />
+          <Route path="/retailer" element={<Distributor />} />
+          <Route path="/userdetail" element={<Userdetail />} />
+          <Route path="/Dashboard" element={<WorkinProgress />} />
+          <Route path="/Exchange" element={<WorkinProgress />} />
+          <Route path="/ddOrder" element={<WorkinProgress />} />
+          <Route path="/ssfee" element={<WorkinProgress />} />
+          <Route path="/Distributor/reports" element={<WorkinProgress />} />
         </Routes>
       </BrowserRouter>
     </>

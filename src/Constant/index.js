@@ -69,19 +69,31 @@ export const DistributorHeaderName=[
 //   { name: "Distributor", path: "/Distributor" },
 //   { name: "Retailer", path: "/Retailer" },
 // ];
+
+
+
+export const AdminData = [
+  { name: "Dashboard", path: "/Admin" },
+  { name: "Exchange", path: "/Admin" },
+  { name: "Retailers", path: "/Admin" },
+  { name: "Reports", path: "/Admin" },
+
+
+]
+
 export const DistributorData=[
-  { name: "Dashboard", path: "/Distributor/dashboard" },
-  { name: "Exchange", path: "/Distributor/exchange" },
-  { name: "Retailers", path: "/Distributor/retailers" },
-  { name: "Orders", path: "/Distributor/orders" },
-  { name: "Platform Fees", path: "/Distributor/platform-fees" },
+  { name: "Dashboard", path: "/Dashboard" },
+  { name: "Exchange", path: "/Exchange" },
+  { name: "Retailers", path: "/retailer" },
+  { name: "Orders", path: "/ddOrder" },
+  { name: "Platform Fees", path: "/ssfee" },
   { name: "Reports", path: "/Distributor/reports" }
 ]
 export const RetailerData=[
-  { name: "Dashboard", path: "/Retailer/dashboard" },
-  { name: "Orders", path: "/Retailer/Orders" },
-  { name: "Distributors", path: "/Retailer/Distributors" },
-
-  { name: "Platform Fees", path: "/Retailer/platform-fees" },
-  { name: "Reports", path: "/Retailer/reports" }
+  { name: "Dashboard", path: "/Retailer" },
+  { name: "Orders", path: "/Retailer" },
+  { name: "Distributors", path: "/Retailer" },
+  { name: "Platform Fees", path: "/Retailer" },
+  { name: "Reports", path: "/Retailer" }
 ]
+
