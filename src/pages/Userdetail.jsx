@@ -39,18 +39,18 @@ const validationSchema = yup.object().shape({
   joinedDate: yup.string().required("required"),
 });
 
-const Userdetail = ( ) => {
+const Userdetail = () => {
   const location = useLocation();
   const initialVal = location?.state.DD;
-const returnPath = localStorage.getItem("ReturnPath")
+  const returnPath = localStorage.getItem("ReturnPath");
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
 
   const [updatedValue, setUpdatedValues] = useState(initialVal);
 
-  const handleFormSubmit =  (values) => {
+  const handleFormSubmit = (values) => {
     setUpdatedValues(values);
-    
+
     setEdit(false);
   };
 
@@ -77,11 +77,10 @@ const returnPath = localStorage.getItem("ReturnPath")
                   type="button"
                   buttonName="Back"
                   color="white"
-                  onClick={() =>
-                    navigate(returnPath)
-                  }
+                  onClick={() => navigate(returnPath)}
                 />
               </div>
+
               <div className="col-3">
                 <Button
                   type="button"
@@ -91,6 +90,25 @@ const returnPath = localStorage.getItem("ReturnPath")
                   Icon={<InlineIcon icon="mage:edit" width="15" height="15" />}
                 />
               </div>
+            </div>
+            <div className="card mt-2 border-0 ">
+              <nav className="nav nav-pills nav-fill p-3">
+                <a class="nav-link  red-color" aria-current="page" href="#">
+                  Details
+                </a>
+                <a class="nav-link red-color" href="#">
+                  Orders
+                </a>
+                <a class="nav-link red-color" href="#">
+                  Payment Fees
+                </a>
+                <a class="nav-link red-color" href="#">
+                  Retailers
+                </a>
+                <a class="nav-link red-color" href="#">
+                  Settings
+                </a>
+              </nav>
             </div>
 
             <div className="card border-0 p-3 mt-5">

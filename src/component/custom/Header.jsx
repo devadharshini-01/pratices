@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 
 const Header = ({title}) => {
+  const handleChange=()=>{
+    localStorage.removeItem("userType")
+  }
+ 
   return (
     <>
       <nav class="navbar bg-white mt-4 rounded-3">
@@ -22,7 +26,7 @@ const Header = ({title}) => {
                 <Link to="/" class="dropdown-item">
                   Change Password
                 </Link>
-                <Link to="/" class="dropdown-item">
+                <Link to="/" onClick={()=>handleChange()} class="dropdown-item">
                   Logout
                 </Link>
               </li>

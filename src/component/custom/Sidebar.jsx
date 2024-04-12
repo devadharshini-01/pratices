@@ -4,6 +4,7 @@ import {
   sidebarData,
   DistributorData,
   RetailerData,
+  AdminData,
 } from "../../Constant/index";
 
 const Sidebar = () => {
@@ -12,7 +13,11 @@ const Sidebar = () => {
   useEffect(() => {
     if (userType === "Distributor") {
       setCurrentSidebarData(DistributorData);
-    } else if (userType === "Retailer") setCurrentSidebarData(RetailerData);
+    } else if (userType === "Retailer") {
+    setCurrentSidebarData(RetailerData);
+    }else if(userType==="Admin"){
+      setCurrentSidebarData(AdminData)
+    }
   }, [window.location.pathname]);
 
   return (
