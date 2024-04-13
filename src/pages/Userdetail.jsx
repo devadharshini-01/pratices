@@ -1,6 +1,6 @@
 import Sidebar from "../component/custom/Sidebar";
 import Header from "../component/custom/Header";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -43,6 +43,7 @@ const Userdetail = () => {
   const location = useLocation();
   const initialVal = location?.state.DD;
   const returnPath = localStorage.getItem("ReturnPath");
+
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
 
@@ -92,29 +93,33 @@ const Userdetail = () => {
               </div>
             </div>
             <div className="card mt-2 border-0 ">
-              <nav className="nav nav-pills nav-fill p-3">
-                <a class="nav-link  red-color" aria-current="page" href="#">
-                  Details
-                </a>
-                <a class="nav-link red-color" href="#">
-                  Orders
-                </a>
-                <a class="nav-link red-color" href="#">
-                  Payment Fees
-                </a>
-                <a class="nav-link red-color" href="#">
-                  Retailers
-                </a>
-                <a class="nav-link red-color" href="#">
-                  Settings
-                </a>
-              </nav>
-            </div>
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active " id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Details</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Orders</button>
+  </li>
+  <li class="nav-item" role="presentation">
+  <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Platform Fees</button>
+  </li>
+  <li class="nav-item" role="presentation">
+  <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Retailers</button>
+  </li>
+  <li class="nav-item" role="presentation">
+  <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Settings</button>
+  </li>
+</ul>
+</div>
+<div className="card mt-2 border-0">
 
-            <div className="card border-0 p-3 mt-5">
+<div class="tab-content " id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+  <div className="card border-0 p-3 mt-5">
               <div className="row">
                 <div className="col-4">
                   <b>UserID</b>
+                  
                   {edit ? (
                     <Input
                       name="userId"
@@ -478,6 +483,20 @@ const Userdetail = () => {
                 </div>
               )}
             </div>
+  </div>
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+    No Data Found
+  </div>
+  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
+  No Data Found
+  </div>
+  <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">
+    No Data Found
+  </div>
+</div>
+            </div>
+
+           
           </div>
         </div>
       </>
