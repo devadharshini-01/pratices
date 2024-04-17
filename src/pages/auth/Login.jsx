@@ -1,57 +1,76 @@
 import { useFormik } from "formik";
 import { Card } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import * as yup from "yup";
-
+import Button from "../../component/custom/Button";
+import logo from "../../images/logo.PNG";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import { DistributorData, RetailerData } from "../../Constant";
 
 const initialValues = {
-  email: "",
+  username: "",
   password: "",
 };
 const validationSchema = yup.object().shape({
-  email: yup.string().email().required("email is required"),
+  username: yup.string().required("username is required"),
   password: yup.string().required("password  required"),
 });
-
-
+const loginCredential = ["Admin", "Distributor", "Retailer"];
 const Login = () => {
-     const handleFormSubmit=(values)=>{
-   console.log(values,"vvv");
-     }
+  const navigate = useNavigate();
+
+  const handleFormSubmit = (values) => {
+    console.log(values);
+
+    if (
+      loginCredential.includes(values.username) &&
+      values.password === "Vinifera@1234"
+    ) {
+      localStorage.setItem("userType", values.username);
+
+
+      navigate("/Dashboard");
+    } else {
+      toast.error("Incorrect username or password");
+    }
+  };
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-     handleFormSubmit(values);
+      handleFormSubmit(values);
     },
   });
-console.log(formik,"formik");
-const navigate=useNavigate();
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <>
-        <div className="card w-25 p-3 mx-auto mt-5">
+        <div className="card size p-3 mx-auto mt-5">
+          <img className="w-25 mx-auto" src={logo}></img>
+
+          <h4 className="text-center">Sign with your email address</h4>
           <div>
             <label for="exampleFormControlInput1" class="form-label">
-              Email address
+              User name
             </label>
             <input
-              type="email"
-              class="form-control"
+              type="username"
+              className="form-control input-color"
               id="exampleFormControlInput1"
-              placeholder="Email address"
-              name="email"
-              value={formik.values.email}
+              placeholder="username"
+              name="username"
+              value={formik.values.username}
               onChange={formik.handleChange}
             />
-            <p className="text-danger">{formik.errors.email}</p>
-            <label for="password1" class="form-label">
+            <p className="text-danger">{formik.errors.username}</p>
+            <label for="password1" className="form-label ">
               Password
             </label>
             <input
               type="email"
-              class="form-control"
+              class="form-control input-color"
               id="password1"
               placeholder="Password"
               name="password"
@@ -60,19 +79,37 @@ const navigate=useNavigate();
             />
             <p className="text-danger">{formik.errors.password}</p>
             <div className="row">
-              <div className="col-6"></div>
-              <div className="col-6">
+              <div className="col-7">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Keep me signed in
+                  </label>
+                </div>
+              </div>
+              <div className="col-5 text-end">
                 <label>Forget Password?</label>
               </div>
             </div>
-            <div>
+            {/* <div>
               <p className="mx-auto">Don't have an account?<span onClick={()=>navigate("/Signin")}>sign up</span></p>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-            
-            
+            </div> */}
+            <Button
+              type="submit"
+              buttonName="Signin"
+              className={"w-100 bg-color"}
+              red="white"
+            />
+
+            <p className="text-center mt-2 ">Privacy policy</p>
           </div>
         </div>
+        <ToastContainer />
       </>
     </form>
   );
